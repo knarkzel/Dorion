@@ -3,6 +3,7 @@
 , dpkg
 , fetchurl
 , autoPatchelfHook
+, wrapGAppsHook
 , webkitgtk
 , glib-networking
 , libappindicator
@@ -18,15 +19,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IYqJ5mz+XGHf4GVSW2Mq/z8xWLs4Y4KRWZ6fAtIg2tk=";
   };
 
-  runtimeDependencies = [ libappindicator libayatana-appindicator ];
+  runtimeDependencies = [ libappindicator libayatana-appindicator glib-networking ];
 
   nativeBuildInputs = [
     dpkg
+    wrapGAppsHook
     autoPatchelfHook
   ];
 
   buildInputs = [
     webkitgtk
+    glib-networking
   ];
 
   unpackCmd = "dpkg-deb -x $curSrc source";
