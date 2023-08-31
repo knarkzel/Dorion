@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IYqJ5mz+XGHf4GVSW2Mq/z8xWLs4Y4KRWZ6fAtIg2tk=";
   };
 
-  runtimeDependencies = [ libappindicator libayatana-appindicator glib-networking ];
+  runtimeDependencies = [
+    libappindicator
+    libayatana-appindicator
+    glib-networking
+  ];
 
   nativeBuildInputs = [
     dpkg
@@ -31,19 +35,14 @@ stdenv.mkDerivation rec {
   buildInputs = [
     webkitgtk
     glib-networking
-
-    # some of these are necessary
-    gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-    # gst_all_1.gst-libav
-    # gst_all_1.gst-vaapi
-    gst-plugins-base 
   ];
 
-  unpackCmd = "dpkg-deb -x $curSrc source";
+  unpackCmd = ''
+    dpkg-deb -x $curSrc source
+  '';
 
   installPhase = ''
     mv usr $out
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tiny alternative Discord client with a smaller footprint, themes and plugins, multi-profile, and more!";
     homepage = "https://github.com/SpikeHD/Dorion";
-    maintainers = [ maintainers.nyanbinary ];
+    maintainers = [ maintainers.knarkzel ];
     license = licenses.gpl3Only;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = platforms.linux;
