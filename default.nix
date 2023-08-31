@@ -3,11 +3,9 @@
 , dpkg
 , fetchurl
 , autoPatchelfHook
-, glib-networking
-, openssl
 , webkitgtk
-, wrapGAppsHook
 , libappindicator
+, libayatana-appindicator
 }:
 
 stdenv.mkDerivation rec {
@@ -19,22 +17,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RKqu+aNLCbjH+802PCboiayYqGlTTOJDjzHaAMyIbj8=";
   };
 
+  runtimeDependencies = [ libappindicator libayatana-appindicator ];
+
   nativeBuildInputs = [
-    autoPatchelfHook
     dpkg
+    autoPatchelfHook
   ];
 
   buildInputs = [
-    glib-networking
-    openssl
     webkitgtk
-    wrapGAppsHook
-    libappindicator
   ];
 
   unpackCmd = "dpkg-deb -x $curSrc source";
 
-  installPhase = "mv usr $out";
+  installPhase = ''
+    mv usr $out
+  '';
 
   meta = with lib; {
     description = "Tiny alternative Discord client with a smaller footprint, themes and plugins, multi-profile, and more!";
