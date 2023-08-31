@@ -40,6 +40,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-ugly
     # gst_all_1.gst-libav
     # gst_all_1.gst-vaapi
+    gst-plugins-base 
   ];
 
   unpackCmd = "dpkg-deb -x $curSrc source";
